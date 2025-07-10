@@ -1,709 +1,871 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mares Motion | Motion Design Portfolio</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
+    <title>FLASH GÁS - Entrega Rápida de Gás em Ibirité e Barreiro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Novo Ripple Clean Effect CSS */
-        .ripple {
-            position: fixed; /* Usar fixed para que o ripple acompanhe o cursor na tela toda */
-            border-radius: 50%;
-            border: 1px solid rgba(100, 149, 237, 0.5); /* Cor do novo ripple */
-            transform: scale(0);
-            pointer-events: none;
-            animation: ripple-animation 1.2s ease-out;
-            z-index: 40; /* Para ficar acima do conteúdo mas abaixo de menus fixos (z-50) */
-            width: 20px; /* Tamanho definido no JS, mas pode ser referenciado aqui */
-            height: 20px;/* Tamanho definido no JS, mas pode ser referenciado aqui */
+        .wave-shape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
         }
         
-        @keyframes ripple-animation {
-            to {
-                transform: scale(3);
-                opacity: 0;
-            }
-        }
-
-        /* Estilos originais do site (sem o water-ripple antigo) */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #141313;
-            color: #E4EDEF;
-            overflow-x: hidden;
-            /* cursor: default;  O novo script já lida bem com mouse/touch, não precisa forçar cursor */
-        }
-
-        .wave-container {
+        .wave-shape svg {
             position: relative;
-            width: 100%;
-            overflow: hidden;
+            display: block;
+            width: calc(100% + 1.3px);
             height: 100px;
         }
-
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background-repeat: repeat no-repeat;
-            background-position: 0 bottom;
-            transform-origin: center bottom;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234395A7" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%234395A7" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%2389CCD4"/></svg>');
+        
+        .wave-shape .shape-fill {
+            fill: #FFFFFF;
         }
-
-        .wave-top {
-            animation: wave 12s linear infinite;
-        }
-
-        .nav-link {
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #89CCD4;
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .video-container {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
-        }
-
-        .video-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(137, 204, 212, 0.2);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            background: #000;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .contact-input {
-            background-color: rgba(228, 237, 239, 0.1);
-            border-bottom: 2px solid #4395A7;
-            transition: all 0.3s ease;
-        }
-
-        .contact-input:focus {
-            background-color: rgba(228, 237, 239, 0.2);
-            border-bottom-color: #89CCD4;
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #4395A7 0%, #89CCD4 100%);
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(137, 204, 212, 0.4);
-        }
-
-        .whatsapp-btn {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(67, 149, 167, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(67, 149, 167, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(67, 149, 167, 0);
-            }
-        }
-
-        section {
-            scroll-margin-top: 100px;
-        }
-
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .logo-img {
-            max-width: 400px;
-            width: 70%;
-            height: auto;
-            margin-bottom: 1.5rem;
-        }
-
-        .full-width-image {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        .mares-logo {
-            max-width: 50px;
-            height: auto;
-        }
-
-        .mares-logo2 {
-            max-width: 120px;
-            height: auto;
-        }
-
-        .footer-logo {
-            max-width: 150px;
-            height: auto;
-        }
-
-        /* Custom CSS for elements Tailwind can't handle */
-        .wave-bg {
+        
+        .pyramid-shape {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23141313" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23141313" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23141313"/></svg>');
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: 10;
-            animation: wave 15s linear infinite;
-        }
-
-        @keyframes wave {
-            0% {
-                background-position-x: 0;
-            }
-
-            100% {
-                background-position-x: 1000px;
-            }
-        }
-
-        .video-container-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
-            z-index: 0;
+            line-height: 0;
+            transform: rotate(180deg);
         }
-
-        .video-container-bg iframe {
-            width: 100vw;
-            height: 56.25vw;
-            min-height: 100vh;
-            min-width: 177.77vh;
+        
+        .pyramid-shape svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+        
+        .pyramid-shape .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .faq-question {
+            cursor: pointer;
+            padding: 1rem 0;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding-bottom: 1rem;
+        }
+        
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+        }
+        
+        .carousel-control {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 20;
-        }
-
-        .logo {
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-            transition: all 0.3s ease;
-        }
-
-        .logo:hover {
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
-            transform: scale(1.02);
-        }
-
-        .video-overlay-text {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
             z-index: 10;
-            padding: 0.5rem;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 4px;
         }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+        
+        .carousel-control.prev {
+            left: 10px;
         }
-
-        @media (min-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        
+        .carousel-control.next {
+            right: 10px;
         }
-        /* Media query para cursor em dispositivos sem hover, se necessário, pode ser adicionada aqui */
-        /* @media (hover: none) {
-            body {
-                cursor: default;
-            }
-        } */
+        
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e0;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .carousel-indicator.active {
+            background: #38a169;
+        }
     </style>
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () {
-                (c[a].q = c[a].q || []).push(arguments)
-            };
-            t = l.createElement(r);
-            t.async = 1;
-            t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "resm485i3e");
-    </script>
 </head>
-<body class="relative"> <div id="home"></div>
+<body class="font-sans">
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5531991586750?text=Estou%20no%20Site%20da%20FLASH%20GÁS%20Gostaria%20de%20realizar%20um%20pedido" 
+       class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg z-50 hover:bg-green-600 transition-colors">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
+    <!-- Header -->
+    <header id="header" class="fixed w-full z-40 py-4 px-6 md:px-12 transition-all duration-300">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                    <i class="fas fa-fire text-xl"></i>
                 </div>
-                <nav class="hidden md:block">
-                    <ul class="flex space-x-8">
-                        <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
-                        <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
-                        <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
-                        <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
-                    </ul>
-                </nav>
-                <button class="md:hidden text-[#E4EDEF]">
-                    <i class="fas fa-bars text-2xl"></i>
+                <span class="text-xl font-bold text-white">FLASH <span class="text-green-400">GÁS</span></span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#inicio" class="text-white font-semibold hover:text-green-300 transition-colors">Início</a>
+                <a href="#sobre" class="text-white font-semibold hover:text-green-300 transition-colors">FLASH GÁS</a>
+                <a href="#produtos" class="text-white font-semibold hover:text-green-300 transition-colors">Produtos</a>
+                <a href="#contato" class="text-white font-semibold hover:text-green-300 transition-colors">Contato</a>
+                <a href="tel:3135985006" class="flex items-center text-white font-semibold hover:text-green-300 transition-colors">
+                    <i class="fas fa-phone-alt mr-2"></i> Ligue agora
+                </a>
+                <div class="relative group">
+                    <button class="flex items-center text-white font-semibold hover:text-green-300 transition-colors">
+                        <span>Áreas de Atendimento</span> <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                    </button>
+                    <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 py-1 w-48">
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Barreiro</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-green-50">Ibirité</a>
+                    </div>
+                </div>
+                <button id="search-btn" class="text-white hover:text-green-300 transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 px-6">
+            <a href="#inicio" class="block py-2 text-gray-800 font-semibold hover:text-green-500">Início</a>
+            <a href="#sobre" class="block py-2 text-gray-800 font-semibold hover:text-green-500">FLASH GÁS</a>
+            <a href="#produtos" class="block py-2 text-gray-800 font-semibold hover:text-green-500">Produtos</a>
+            <a href="#contato" class="block py-2 text-gray-800 font-semibold hover:text-green-500">Contato</a>
+            <a href="tel:3135985006" class="flex items-center py-2 text-gray-800 font-semibold hover:text-green-500">
+                <i class="fas fa-phone-alt mr-2"></i> Ligue agora
+            </a>
+            <div class="py-2">
+                <button class="flex items-center text-gray-800 font-semibold hover:text-green-500">
+                    <span>Áreas de Atendimento</span> <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                </button>
+                <div class="pl-4 mt-1">
+                    <a href="#" class="block py-1 text-gray-600 hover:text-green-500">Barreiro</a>
+                    <a href="#" class="block py-1 text-gray-600 hover:text-green-500">Ibirité</a>
+                </div>
+            </div>
+            <div class="flex items-center py-2">
+                <input type="text" placeholder="Buscar..." class="border border-gray-300 rounded-l px-3 py-1 w-full">
+                <button class="bg-green-500 text-white px-3 py-1 rounded-r">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden absolute top-full left-0 w-full bg-white shadow-lg py-3 px-6">
+            <div class="flex items-center max-w-4xl mx-auto">
+                <input type="text" placeholder="O que você está procurando?" class="border border-gray-300 rounded-l px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-green-500">
+                <button class="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-600 transition-colors">
+                    <i class="fas fa-search"></i> Buscar
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        <div class="video-container-bg">
-            <iframe
-                    loading="eager"
-                    src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
-                    frameborder="0"
-                    allow="autoplay; fullscreen"
-                    allowfullscreen
-                    webkitallowfullscreen
-                    mozallowfullscreen>
-            </iframe>
+    <!-- Hero Section -->
+    <section id="inicio" class="relative pt-24 pb-32 md:pt-32 md:pb-40 bg-gradient-to-r from-green-600 to-green-700 text-white overflow-hidden">
+        <!-- Wave Shape -->
+        <div class="wave-shape">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
         </div>
-        <div class="overlay"></div>
-        <div class="hero-content px-4 text-center max-w-4xl mx-auto">
-            <div class="logo mb-8">
-                <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">PEÇA AGORA SEU GÁS</h1>
+                    <p class="text-xl mb-8">Entrega rápida e segura em Ibirité e Barreiro. Seu conforto é nossa prioridade!</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="tel:3135985006" class="bg-white text-green-700 px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-phone-alt mr-3"></i> (31) 3598-5006
+                        </a>
+                        <a href="https://wa.me/5531991586750?text=Estou%20no%20Site%20da%20FLASH%20GÁS%20Gostaria%20de%20realizar%20um%20pedido" 
+                           class="bg-green-500 text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-green-600 transition-colors">
+                            <i class="fab fa-whatsapp mr-3 text-xl"></i> (31) 99158-6750
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://img.freepik.com/free-vector/delivery-man-with-mask-his-face-carrying-cardboard-box_74855-7339.jpg" 
+                         alt="Entregador de gás" 
+                         class="w-full max-w-md rounded-lg shadow-xl">
+                </div>
             </div>
-            <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
-                Motion design that flows like the sea — creating animations that blend technique, vision, and commitment
-                in every frame.
-            </p>
-            <a href="#portfolio"
-               class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
-                Explore Work
-            </a>
         </div>
     </section>
 
-    <main class="container mx-auto px-6 pb-20">
-        <section id="portfolio" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-                <div class="text-center px-4 py-2">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
-                        PORTIFOLIO
-                    </h2>
-                    <p class="text-white text-lg md:text-xl font-medium">
-                        Dive into the videos below — each one created by me over 7 years of experience in motion design.
+    <!-- Trust Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Aqui você pode confiar!</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Segurança</h3>
+                    <p class="text-gray-600">Botijões lacrados e numerados para sua tranquilidade.</p>
+                </div>
+                <div class="p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-clock text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Rapidez</h3>
+                    <p class="text-gray-600">Entrega em até 2 horas na maioria dos casos.</p>
+                </div>
+                <div class="p-6 rounded-lg">
+                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-hand-holding-usd text-green-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Preço Justo</h3>
+                    <p class="text-gray-600">Melhores preços da região com desconto real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">FLASH GÁS</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://img.freepik.com/free-photo/worker-uniform-delivering-gas-cylinder_23-2149127836.jpg" 
+                         alt="Entregador de gás" 
+                         class="w-full rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-lg text-gray-700 mb-6">
+                        A Empresa FLASH GÁS é 100% dedicada a entregar o melhor atendimento possível a seus clientes no menor tempo possível. Pensando nisso estamos sempre trabalhando para estarmos melhor conectados a você. Conheça nossos produtos e serviços aqui em nosso site.
                     </p>
-                </div>
-            </div>
-
-            <div class="space-y-20">
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe
-                                loading="lazy"
-                                id="video-1082028000"
-                                src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                                frameborder="0"
-                                allow="autoplay; fullscreen"
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                                class="absolute top-0 left-0 w-full h-full z-0" 
-                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe
-                                loading="lazy"
-                                src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                frameborder="0"
-                                allow="autoplay; fullscreen"
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="video-overlay-text">Logo Reveal</div>
-                </div>
-
-                <div class="grid-container">
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Animated Cast</div>
-                    </div>
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Vertical Format</div>
-                    </div>
-                </div>
-
-                <div class="grid-container">
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Nethone</div>
-                    </div>
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                   loading="lazy"
-                                   src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                   frameborder="0"
-                                   allow="autoplay; fullscreen"
-                                   allowfullscreen
-                                   webkitallowfullscreen
-                                   mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Rede Salesiana</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="py-20 fade-in">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <div class="mb-8">
-                        <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
-                    </div>
-                    <p class="text-lg mb-6">
-                        Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the
-                        fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
+                    <p class="text-lg text-gray-700 mb-8">
+                        Ou pelos nossos telefones:
                     </p>
-                    <p class="text-lg mb-6">
-                        Our approach combines technical precision with artistic vision, resulting in work that is both visually
-                        stunning and strategically effective.
-                    </p>
-                    <p class="text-lg">
-                        Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help
-                        your message flow beautifully.
-                    </p>
-                </div>
-                <div class="lg:w-1/2">
-                    <div class="rounded-xl overflow-hidden">
-                        <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image"
-                             class="w-3/4 h-auto rounded-xl shadow-lg">
+                    <div class="space-y-4">
+                        <a href="https://wa.me/5531991586750?text=Estou%20no%20Site%20da%20FLASH%20GÁS%20Gostaria%20de%20realizar%20um%20pedido" 
+                           class="flex items-center text-green-600 hover:text-green-700 transition-colors">
+                            <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                            <span class="text-lg font-semibold">WhatsApp: (31) 99158-6750</span>
+                        </a>
+                        <a href="tel:3135985006" class="flex items-center text-gray-700 hover:text-green-600 transition-colors">
+                            <i class="fas fa-phone-alt mr-3 text-xl"></i>
+                            <span class="text-lg font-semibold">(31) 3598-5006</span>
+                        </a>
+                    </div>
+                    <div class="mt-8">
+                        <div class="flex items-center mb-2">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <span class="ml-2 text-gray-700 font-semibold">5/5 (200+ avaliações)</span>
+                        </div>
+                        <p class="text-gray-600 italic">"Ótimo atendimento, entrega rápida e preço justo. Recomendo!" - Cliente satisfeito</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-            </div>
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fas fa-envelope text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
-                                <a href="mailto:matheusresende47@gmail.com"
-                                   class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
-                            </div>
+    <!-- How It Works Section -->
+    <section class="relative py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <!-- Pyramid Shape Top -->
+        <div class="pyramid-shape">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-6 md:px-12 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Saiba um pouco de como nossos serviços funcionam</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <div class="flex items-start">
+                        <div class="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4 flex-shrink-0">
+                            1
                         </div>
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fab fa-whatsapp text-xl"></i>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Faça seu pedido</h3>
+                            <p class="text-green-100">Ligue ou envie mensagem pelo WhatsApp informando seu endereço e tipo de gás necessário.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <div class="flex items-start">
+                        <div class="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4 flex-shrink-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Confirmamos seu pedido</h3>
+                            <p class="text-green-100">Nossa equipe verifica a disponibilidade e informa o tempo estimado para entrega.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <div class="flex items-start">
+                        <div class="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4 flex-shrink-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Entregamos na sua casa</h3>
+                            <p class="text-green-100">Nosso entregador leva o botijão lacrado e faz a pesagem na sua presença.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <div class="flex items-start">
+                        <div class="bg-green-500 rounded-full w-12 h-12 flex items-center justify-center text-white text-xl mr-4 flex-shrink-0">
+                            4
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Pagamento seguro</h3>
+                            <p class="text-green-100">Você paga somente após receber o produto e conferir a pesagem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pyramid Shape Bottom -->
+        <div class="pyramid-shape" style="bottom: auto; top: 0; transform: rotate(0);">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Horário de Atendimento</h3>
+                        <p class="text-gray-600">Atendimento de segunda à sábado das 7h00 às 21h, domingos e feriados das 7h00 às 15h com plantões de urgência.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Tipos de Gás</h3>
+                        <p class="text-gray-600">Venda de gás P-5, P-8, P-13 (gás de cozinha), P-20 (gás para empilhadeiras) e P-45 (gás industrial).</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Serviço Industrial</h3>
+                        <p class="text-gray-600">Programação de abastecimento de GLP industrial sem necessidade de ligações.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Comodato</h3>
+                        <p class="text-gray-600">Empréstimo (comodato) ou venda de botijões industriais P-20 e P-45 para empresas.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Pesagem Garantida</h3>
+                        <p class="text-gray-600">Repesagem no ato da entrega com desconto real, lacre numerado e rastreado.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center text-green-600 text-2xl mr-4 flex-shrink-0">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Entrega Rápida</h3>
+                        <p class="text-gray-600">Frota própria com entregadores treinados para atendimento ágil em toda a região.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="relative py-16 bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Não fique sem gás!</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Entre em contato agora mesmo e garanta seu botijão com segurança e rapidez.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="tel:3135985006" class="bg-white text-green-700 px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-phone-alt mr-3"></i> (31) 3598-5006
+                </a>
+                <a href="https://wa.me/5531991586750?text=Estou%20no%20Site%20da%20FLASH%20GÁS%20Gostaria%20de%20realizar%20um%20pedido" 
+                   class="bg-green-800 text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-green-900 transition-colors">
+                    <i class="fab fa-whatsapp mr-3 text-xl"></i> (31) 99158-6750
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="produtos" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Nossos Produtos</h2>
+            
+            <div class="carousel relative">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/p13-1.png" 
+                                     alt="Botijão P13" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Botijão P13</h3>
+                                    <p class="text-gray-600 mb-4">Ideal para residências e pequenos estabelecimentos.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 95,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
-                                <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                                   class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/p20-1.png" 
+                                     alt="Botijão P20" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Botijão P20</h3>
+                                    <p class="text-gray-600 mb-4">Para empilhadeiras e uso em médios estabelecimentos.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 145,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/p45-1.png" 
+                                     alt="Botijão P45" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Botijão P45</h3>
+                                    <p class="text-gray-600 mb-4">Para uso industrial e grandes estabelecimentos.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 295,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                       class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
+                    <div class="carousel-item">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/p5-1.png" 
+                                     alt="Botijão P5" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Botijão P5</h3>
+                                    <p class="text-gray-600 mb-4">Para churrasqueiras e uso ocasional.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 55,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/p8-1.png" 
+                                     alt="Botijão P8" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Botijão P8</h3>
+                                    <p class="text-gray-600 mb-4">Para pequenas residências e uso moderado.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 75,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                                <img src="https://www.ultragaz.com.br/wp-content/uploads/2021/06/registro.png" 
+                                     alt="Regulador de Pressão" 
+                                     class="w-full h-64 object-contain">
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-2">Regulador de Pressão</h3>
+                                    <p class="text-gray-600 mb-4">Certificado pelo Inmetro para maior segurança.</p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-green-600 font-bold">R$ 39,90</span>
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                            Pedir Agora
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-control prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-control next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active"></div>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer class="bg-black bg-opacity-70 py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
-                <div class="text-[#E4EDEF] mb-4 text-center">
-                    © 2025 Mares Motion – All rights reserved.
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Perguntas Frequentes</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                            <span>Vocês aceitam quais formas de pagamento?</span>
+                            <i class="fas fa-plus"></i>
+                        </h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">Aceitamos pagamentos à vista, cartão de débito e crédito, transferências bancárias TED e PIX.</p>
+                    </div>
                 </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                            <span>Vocês atendem apenas pessoas físicas?</span>
+                            <i class="fas fa-plus"></i>
+                        </h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">Não, fazemos serviços de distribuição tanto de gás quanto de água com período agendado para estabelecimentos como bares e restaurantes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                            <span>Vocês atendem somente no bairro x?</span>
+                            <i class="fas fa-plus"></i>
+                        </h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">Não, temos entregadores à disposição para atender a demanda de toda região do Barreiro e Ibirité. Ligue e entre em contato.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                            <span>Como posso ter certeza que o botijão está cheio?</span>
+                            <i class="fas fa-plus"></i>
+                        </h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">Todos nossos botijões são pesados na sua presença no momento da entrega, com desconto real e lacre numerado para sua segurança.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="text-xl font-bold text-gray-800 flex justify-between items-center">
+                            <span>Posso agendar a entrega para um horário específico?</span>
+                            <i class="fas fa-plus"></i>
+                        </h3>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">Sim, basta informar no momento do pedido o horário desejado e faremos o possível para atender sua solicitação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="contato" class="relative py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Seu Gás acabou?</h2>
+                    <p class="text-xl mb-8">Peça pelo WhatsApp ou Ligação</p>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
+                        <a href="tel:3135985006" class="bg-white text-green-700 px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-phone-alt mr-3"></i> (31) 3598-5006
+                        </a>
+                        <a href="https://wa.me/5531991586750?text=Estou%20no%20Site%20da%20FLASH%20GÁS%20Gostaria%20de%20realizar%20um%20pedido" 
+                           class="bg-green-800 text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-green-900 transition-colors">
+                            <i class="fab fa-whatsapp mr-3 text-xl"></i> (31) 99158-6750
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <a href="https://instagram.com/flashgasibirite" class="bg-white text-gray-800 px-4 py-2 rounded-lg font-bold flex items-center hover:bg-gray-100 transition-colors">
+                            <i class="fab fa-instagram mr-2 text-xl text-pink-600"></i> @flashgasibirite
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <div class="bg-white rounded-lg overflow-hidden shadow-xl">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741.693518192188!2d-44.05792392437445!3d-20.30560065098026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa6c0a5e5a4a4a5%3A0x2a0e0a5e5a4a4a5!2sR.%20Jos%C3%A9%20Tavares%20Filho%2C%20289%20A%20-%20Maril%C3%A2ndia%2C%20Ibirit%C3%A9%20-%20MG%2C%2032400-000!5e0!3m2!1spt-BR!2sbr!4v1620000000000!5m2!1spt-BR!2sbr" 
+                                width="100%" 
+                                height="400" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-8 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                            <i class="fas fa-fire text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">FLASH <span class="text-green-400">GÁS</span></span>
+                    </div>
+                    <p class="mb-4">Entrega rápida e segura de gás em Ibirité e Barreiro.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://facebook.com" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com/flashgasibirite" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://wa.me/5531991586750" class="text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#inicio" class="hover:text-white transition-colors">Início</a></li>
+                            <li><a href="#sobre" class="hover:text-white transition-colors">Sobre Nós</a></li>
+                            <li><a href="#produtos" class="hover:text-white transition-colors">Produtos</a></li>
+                            <li><a href="#contato" class="hover:text-white transition-colors">Contato</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Informações</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="hover:text-white transition-colors">Política de Privacidade</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">Termos de Uso</a></li>
+                            <li><a href="mailto:contato@flashgas.com.br" class="hover:text-white transition-colors">E-mail para contato</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-white font-bold text-lg mb-4">Contato</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mr-2 mt-1"></i>
+                                <span>R. José Tavares Filho, 289 A - Marilândia, Ibirité - MG, 32400-000</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone-alt mr-2"></i>
+                                <a href="tel:3135985006">(31) 3598-5006</a>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fab fa-whatsapp mr-2"></i>
+                                <a href="https://wa.me/5531991586750">(31) 99158-6750</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
+                <p class="mb-2">Copyright © 2025 Todos os direitos reservados a FLASH GÁS. Este site ou qualquer parte dele não pode ser reproduzido ou usado de forma alguma sem autorização por escrito, do autor ou editor, exceto pelo uso de citações breves em uma resenha do portal.</p>
+                <p class="mb-2">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Depois que você sair do Facebook não é deles e sim do nosso site.</p>
+                <p>Este site não é afiliado ao Google ou a qualquer entidade do Google. Depois que você sair do Google não é deles e sim do nosso site.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+                header.classList.remove('text-white');
+                header.classList.add('text-gray-800');
+            } else {
+                header.classList.remove('header-scrolled');
+                header.classList.remove('text-gray-800');
+                header.classList.add('text-white');
+            }
         });
 
-        // Intersection Observer for fade-in animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        fadeElements.forEach(el => {
-            el.style.opacity = 0;
-            observer.observe(el);
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
         });
 
-        // Initialize on DOM load for Vimeo API and volume
-        document.addEventListener('DOMContentLoaded', () => {
-            const tag = document.createElement('script');
-            tag.src = "https://player.vimeo.com/api/player.js";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // Search bar toggle
+        const searchBtn = document.getElementById('search-btn');
+        const searchBar = document.getElementById('search-bar');
+        
+        searchBtn.addEventListener('click', function() {
+            searchBar.classList.toggle('hidden');
+        });
 
-            // Esta função para setar volume via postMessage pode ser mais complexa que o necessário
-            // Se o método Vimeo.Player funciona (como no script mais abaixo), ele é preferível.
-            // Vou manter o script Vimeo.Player mais abaixo e comentar esta parte por enquanto
-            // para evitar conflitos ou duplicação de lógica de volume.
-
-            /*
-            function setVideoVolume(videoId, volume) {
-                const iframe = document.getElementById(videoId);
-                if (iframe) {
-                    if (iframe.contentWindow) {
-                        const message = {
-                            method: 'setVolume',
-                            value: volume
-                        };
-                        // Post message when player is ready
-                        const player = new Vimeo.Player(iframe);
-                        player.ready().then(() => {
-                           player.setVolume(volume).catch(error => console.error('Error setting volume via API:', error));
-                        }).catch(error => console.error('Player not ready:', error));
-
-                    } else {
-                        console.error('iframe.contentWindow is not defined. Cannot set volume.');
-                    }
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                answer.classList.toggle('active');
+                
+                if (answer.classList.contains('active')) {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
                 } else {
-                    console.warn(`Iframe with ID "${videoId}" not found.`);
-                }
-            }
-            // Set volume for the first video, after the Vimeo API is loaded and ready
-            // setVideoVolume('video-1082028000', 0.2); // Movido para o script específico do Vimeo abaixo
-            */
-        });
-
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const rippleWidth = 20;
-            const rippleHeight = 20;
-
-            function createRipple(x, y) {
-                const ripple = document.createElement('div');
-                ripple.classList.add('ripple');
-                
-                // Centraliza o ripple no cursor/toque
-                ripple.style.left = `${x - (rippleWidth / 2)}px`;
-                ripple.style.top = `${y - (rippleHeight / 2)}px`;
-                
-                // Define o tamanho do ripple (já definido no CSS também para referência)
-                ripple.style.width = `${rippleWidth}px`;
-                ripple.style.height = `${rippleHeight}px`;
-                
-                document.body.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 1200); // Duração da animação CSS
-            }
-            
-            let canCreateRipple = true;
-            document.addEventListener('mousemove', (e) => {
-                if (canCreateRipple) {
-                    createRipple(e.clientX, e.clientY);
-                    canCreateRipple = false;
-                    setTimeout(() => { // Limita a frequência de criação no mousemove
-                        canCreateRipple = true;
-                    }, 50); // Ajuste este valor para mais ou menos ripples (50ms = 20 ripples/seg max)
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
                 }
             });
-            
-            document.addEventListener('touchmove', (e) => {
-                // Para touchmove, pode ser interessante criar um ripple por evento,
-                // pois os eventos são menos frequentes que mousemove.
-                // Ou adicionar um throttle similar ao mousemove se necessário.
-                const touch = e.touches[0];
-                createRipple(touch.clientX, touch.clientY);
-            });
-            
-            // Opcional: Adiciona alguns ripples iniciais para demonstração
-            // function addInitialRipples() {
-            //     for (let i = 0; i < 3; i++) {
-            //         setTimeout(() => {
-            //             const x = Math.random() * window.innerWidth;
-            //             const y = Math.random() * window.innerHeight;
-            //             createRipple(x, y);
-            //         }, i * 300);
-            //     }
-            // }
-            // addInitialRipples(); // Descomente para ativar ripples iniciais
         });
-    </script>
 
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-            data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script>
-        // Script para controlar o volume do vídeo específico do Vimeo
-        // Certifique-se que o ID 'video-1082028000' corresponde ao iframe correto
-        const iframeVideo1 = document.getElementById('video-1082028000'); 
-        if (iframeVideo1) {
-            const player1 = new Vimeo.Player(iframeVideo1);
-            player1.ready().then(function() {
-                player1.setVolume(0.2) // Volume de 0 (mudo) a 1 (máximo)
-                    .then(function(volume) {
-                        console.log('Volume do vídeo 1 definido para:', volume);
-                    })
-                    .catch(function(error) {
-                        console.error('Erro ao definir volume do vídeo 1:', error.name, error.message);
-                    });
-            }).catch(function(error) {
-                console.error('Erro ao preparar o player do vídeo 1:', error.name, error.message);
+        // Carousel functionality
+        let currentSlide = 0;
+        const carousel = document.querySelector('.carousel-inner');
+        const items = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        
+        function goToSlide(index) {
+            if (index >= items.length) index = 0;
+            if (index < 0) index = items.length - 1;
+            
+            currentSlide = index;
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            indicators.forEach((indicator, i) => {
+                if (i === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
             });
-        } else {
-            console.warn("Iframe com ID 'video-1082028000' não encontrado para controle de volume.");
         }
+        
+        // Next button
+        document.querySelector('.carousel-control.next').addEventListener('click', function() {
+            goToSlide(currentSlide + 1);
+        });
+        
+        // Previous button
+        document.querySelector('.carousel-control.prev').addEventListener('click', function() {
+            goToSlide(currentSlide - 1);
+        });
+        
+        // Indicator clicks
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                goToSlide(index);
+            });
+        });
+        
+        // Auto slide
+        setInterval(() => {
+            goToSlide(currentSlide + 1);
+        }, 5000);
     </script>
 </body>
 </html>
